@@ -1,0 +1,9 @@
+spring:
+  jms:
+    servicebus:
+      connection-string: Endpoint=SOME_ENDPOINT_WITH_SB_PROTOCOL;SharedAccessKeyName=SOME_KEY;SharedAccessKey=SOME_ACCESS_KEY
+      pricing-tier: basic
+      topic-client-id: Go to Azure Portal > topic > properties > id (copy that value into here)
+simple:
+  topic: ${SOME_TOPIC}
+  subscription: ${SOME_SUBSCRIPTION}
