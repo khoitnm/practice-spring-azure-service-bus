@@ -1,0 +1,27 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/pro00-simple-connect?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: user
+    password: user
+    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
+    hikari:
+      pool-name: pro00-simple-connect-pool
+
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+#      hibernate.format_sql: true
+
+      # This config must match with Dialect config in TransactionalOutboxConfig.persistor()
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+    # Avoid accidental performance issue: https://github.com/spring-projects/spring-boot/issues/7107
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+  sql:
+    init:
+      #Account for running schema scripts
+      username: root
+      password: root
