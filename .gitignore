@@ -12,6 +12,7 @@ build.properties
 *.log
 .sonar
 
+**/application-local.yml
 
 /src/main/resources/static/node_modules/angular/*
 !/src/main/resources/static/node_modules/angular/
