@@ -16,21 +16,22 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 public class SimpleEventListener {
 
-  private final ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   @JmsListener(destination = "${simple.topic}", containerFactory = "topicJmsListenerContainerFactory",
       subscription = "${simple.subscription}")
-  public void receiveEvent(Message<Object> message) throws UnsupportedEncodingException, JsonProcessingException {
-    log.info("Received event as bytes: {}", message);
-    String json = toText((byte[]) message.getPayload());
+  public void receiveEvent(Message<byte[]> message) throws UnsupportedEncodingException, JsonProcessingException {
+    log.info("Message headers: {}", message.getHeaders().entrySet());
+
+    String json = toText(message.getPayload());
     log.info("Message payload as string: {}", json);
+
     Event event = objectMapper.readValue(json, Event.class);
     log.info("Message payload as object: {}", event);
   }
 
   public static String toText(byte[] bytes) throws UnsupportedEncodingException {
     String text = new String(bytes, "UTF-8");
-    log.info("print: " + text);
     return text;
   }
 }
