@@ -1,0 +1,14 @@
+spring:
+  jms:
+    servicebus:
+      connection-string: Endpoint=sb://localhost;SharedAccessKeyName=aaa;SharedAccessKey=bbb;
+      pricing-tier: basic
+      topic-client-id: /none
+
+  activemq:
+    in-memory: true
+    pool:
+      enabled: false
+simple:
+  topic: test_topic
+  subscription: test_subscription
