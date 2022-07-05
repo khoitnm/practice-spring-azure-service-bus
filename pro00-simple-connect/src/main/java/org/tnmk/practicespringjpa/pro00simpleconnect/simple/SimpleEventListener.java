@@ -18,8 +18,7 @@ public class SimpleEventListener {
 
   private final ObjectMapper objectMapper = new ObjectMapper();
 
-  @JmsListener(destination = "${simple.topic}", containerFactory = "topicJmsListenerContainerFactory",
-      subscription = "${simple.subscription}")
+  @JmsListener(destination = "${simple.topic}", subscription = "${simple.subscription}",containerFactory = "customJmsListenerContainerFactory")
   public void receiveEvent(Message<byte[]> message) throws UnsupportedEncodingException, JsonProcessingException {
     log.info("Message headers: {}", message.getHeaders().entrySet());
 
@@ -28,6 +27,8 @@ public class SimpleEventListener {
 
     Event event = objectMapper.readValue(json, Event.class);
     log.info("Message payload as object: {}", event);
+
+//    throw new NullPointerException("some");
   }
 
   public static String toText(byte[] bytes) throws UnsupportedEncodingException {
